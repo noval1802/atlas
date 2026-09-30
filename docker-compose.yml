@@ -1,0 +1,90 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: atlas-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: atlas
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: "${ATLAS_POSTGRES_PASSWORD:?Set ATLAS_POSTGRES_PASSWORD in .env}"
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - atlas_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas -d atlas"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: atlas-app
+    restart: unless-stopped
+    env_file:
+      - .env
+      - .env.local
+    environment:
+      DATABASE_URL: "postgresql://atlas:${ATLAS_POSTGRES_PASSWORD}@postgres:5432/atlas?schema=public"
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      REALTIME_INTERNAL_URL: http://realtime:3001/publish
+      REALTIME_PUBLISH_TOKEN: ${AUTH_SECRET}
+      KODAM_LOGO_UPLOAD_DIR: /app/uploads/kodam
+      DOCUMENT_STORAGE_DIR: /app/uploads/documents
+      DOCUMENT_MAX_UPLOAD_BYTES: "26214400"
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - atlas_kodam_uploads:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      realtime:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  realtime:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: realtime
+    container_name: atlas-realtime
+    restart: unless-stopped
+    environment:
+      PORT: 3001
+      REALTIME_PUBLISH_TOKEN: ${AUTH_SECRET}
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:3001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+  proxy:
+    image: nginx:1.28-alpine
+    container_name: atlas-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./deploy/tls:/etc/nginx/tls:ro
+    depends_on:
+      app:
+        condition: service_healthy
+      realtime:
+        condition: service_healthy
+
+volumes:
+  atlas_postgres_data:
+  atlas_kodam_uploads:

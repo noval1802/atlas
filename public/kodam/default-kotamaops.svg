@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Kotamaops</title>
+  <desc id="desc">Lambang generik untuk Kotamaops ATLAS</desc>
+  <defs>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#164e63"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <path d="M64 7 111 24v35c0 30-18 51-47 63C35 110 17 89 17 59V24L64 7Z" fill="url(#shield)" stroke="#22d3ee" stroke-width="5"/>
+  <path d="m64 27 8.7 17.6 19.4 2.8-14 13.7 3.3 19.3L64 71.3 46.6 80.4 50 61.1 36 47.4l19.3-2.8L64 27Z" fill="#fbbf24"/>
+  <path d="M40 94h48" stroke="#22d3ee" stroke-width="5" stroke-linecap="round"/>
+  <text x="64" y="111" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="9" font-weight="700" text-anchor="middle">KOTAMAOPS</text>
+</svg>

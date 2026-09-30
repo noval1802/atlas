@@ -1,0 +1,9 @@
+.next
+node_modules
+.env*
+CREDENTIALS.local.txt
+deploy/tls/*
+!.gitkeep
+npm-debug.log*
+*.tsbuildinfo
+uploads

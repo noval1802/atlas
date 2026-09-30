@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+:root {
+  --background: #060b16;
+  --foreground: #eef4ff;
+  --border: #1c2c43;
+  --muted: #8291a7;
+  --accent: #22d3ee;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  color-scheme: dark;
+}
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 75% 0%, rgba(14, 116, 144, 0.11), transparent 28rem), var(--background);
+  color: var(--foreground);
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-thumb {
+  background: #263950;
+  border-radius: 99px;
+}
+.panel {
+  background: linear-gradient(145deg, rgba(14, 25, 43, 0.94), rgba(8, 17, 31, 0.96));
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+}
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.leaflet-container {
+  background: #07101f !important;
+  font-family: inherit;
+}
+.atlas-basemap-dark {
+  filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(92%) saturate(65%);
+}
+.leaflet-control-zoom a {
+  background: #0e192b !important;
+  color: #cbd5e1 !important;
+  border-color: #24344a !important;
+}
+.leaflet-control-attribution {
+  background: rgba(6, 11, 22, 0.82) !important;
+  color: #64748b !important;
+  font-size: 9px !important;
+}
+.leaflet-control-attribution a {
+  color: #22d3ee !important;
+}
+.atlas-popup .leaflet-popup-content-wrapper,
+.atlas-popup .leaflet-popup-tip {
+  background: #0c1728;
+  color: #e2e8f0;
+  border: 1px solid #263950;
+}
+.atlas-popup .leaflet-popup-content {
+  margin: 14px;
+}
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+.pulse-dot {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+@media (max-width: 767px) {
+  .leaflet-control-attribution {
+    display: none;
+  }
+}
+.input-map {
+  margin-top: 0.4rem;
+  height: 2.4rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  background: #020617;
+  padding: 0 0.65rem;
+  font-size: 0.7rem;
+  color: #f1f5f9;
+  outline: none;
+}
+.input-map:focus {
+  border-color: rgba(34, 211, 238, 0.65);
+}
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  padding: 0.5rem 0.625rem;
+  font-size: 0.5625rem;
+  color: #cbd5e1;
+}
+.action-button:hover:not(:disabled) {
+  border-color: rgba(34, 211, 238, 0.5);
+  color: #67e8f9;
+}
+.kodam-map-icon {
+  background: transparent !important;
+  border: 0 !important;
+}
+.kodam-map-icon > div {
+  position: relative;
+  display: flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--marker-color);
+  border-radius: 50% 50% 50% 8px;
+  background: #08111f;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+}
+.kodam-map-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  transform: rotate(45deg);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+.annotation-grid {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 0.24rem;
+  font-size: 8px;
+  line-height: 1.25;
+}
+.annotation-grid dt {
+  color: #64748b;
+}
+.annotation-grid dd {
+  overflow: hidden;
+  margin: 0;
+  color: #e2e8f0;
+  font-weight: 600;
+  text-align: right;
+}
+.situation-overlay {
+  z-index: 450;
+}
+.situation-annotation-card {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+@media (max-width: 900px) {
+  .situation-annotation-card,
+  .situation-overlay svg {
+    display: none;
+  }
+}
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+  .atlas-print-hidden,
+  .atlas-map-controls,
+  .leaflet-control-container {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+  }
+  .situation-overlay {
+    overflow: visible;
+  }
+}

@@ -281,7 +281,7 @@ Login dianggap berhasil bila browser, setelah menerima peringatan sertifikat, me
 
 ## Riwayat sesi
 
-Bagian ini adalah catatan yang ditentukan. Setiap sesi yang mengubah sistem, menambah fitur, memperbaiki sesuatu, atau menemukan error layanan menambahkan entri baru di bawah entri terakhir. Entri lama tidak ditimpa. Baris error diambil dari `atlas-app`, `atlas-realtime`, `atlas-postgres`, `atlas-proxy`, `atlas-keycloak`, dan `atlas-keycloak-db` lewat `Project/scripts/catat-sesi.sh`. Tugas yang menjalankan aturan ini ada di `~/.grok/skills/catat-atlas/SKILL.md` (`/catat-atlas`).
+Bagian ini adalah catatan yang ditentukan. Setiap sesi yang mengubah sistem, menambah fitur, memperbaiki sesuatu, atau menemukan error layanan menambahkan entri baru di bawah entri terakhir. Entri lama tidak ditimpa. Berkas ini ada di dalam folder ATLAS: `docs/MIGRASI.md`. Baris error diambil lewat `scripts/catat-sesi.sh`. Tugasnya ada di `.grok/skills/catat-atlas/` (`/catat-atlas`).
 
 ### 2026-09-30 00:40 — tugas catatan sesi
 
@@ -343,4 +343,33 @@ tidak ada baris error
 tidak ada baris error
 
 RINGKAS tidak ada baris error baru sejak 2026-09-29T17:22:24Z
+```
+
+### 2026-09-30 08:30 — catatan dan tugas dipindah ke dalam folder ATLAS
+
+- Perubahan: catatan yang diunggah adalah `docs/MIGRASI.md`. Tugas pencatat ada di `.grok/skills/catat-atlas/`. Skrip pengumpul error ada di `scripts/catat-sesi.sh`. Ketiganya sekarang berada di dalam folder ATLAS sehingga ikut saat folder itu diunggah.
+- Fitur: tidak ada fitur aplikasi baru.
+- Perbaikan: tidak ada.
+- Error layanan:
+
+```text
+## atlas-app
+tidak ada baris error
+
+## atlas-realtime
+tidak ada baris error
+
+## atlas-postgres
+tidak ada baris error
+
+## atlas-proxy
+tidak ada baris error
+
+## atlas-keycloak
+tidak ada baris error
+
+## atlas-keycloak-db
+tidak ada baris error
+
+RINGKAS tidak ada baris error baru sejak 2026-09-30T00:04:59Z
 ```
